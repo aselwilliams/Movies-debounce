@@ -3,10 +3,13 @@ import MoviesSearch from './components/MoviesSearch'
 import './App.css';
 import {useEffect,useState} from 'react';
 import {Link} from 'react-router-dom'
+import Paginate from './components/Paginate'
 
 function App() {
   const [movies, setMovies]=useState([]);
   const [query, setQuery]=useState('');
+  const [currentPage,setCurrentPage] =useState(1);
+  const [itemsPerPage,setItemsPerPage]=useState(8);
 
   const fetchMovies=()=>{
     const url='https://62a14788cc8c0118ef489613.mockapi.io/movies'
@@ -27,6 +30,12 @@ function App() {
       return m.Title.toLowerCase().includes(query.toLowerCase())
     })
   }
+
+  //Get current movies
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentMovies = movies.slice(indexOfFirstItem, indexOfLastItem)
+
   return (
     <div className="container">
       <div className="row">
@@ -41,9 +50,12 @@ function App() {
       <div>
         <MoviesSearch setQuery={setQuery} />
       </div>
-     
+     <div>
+       <Paginate currentPage={currentPage} itemsPerPage={itemsPerPage} />
+     </div>
+
      <div className='row'>
-       <Movies movies={search(movies)} />
+       <Movies currentMovies={search(currentMovies)} />
      </div>
     </div>
   );
