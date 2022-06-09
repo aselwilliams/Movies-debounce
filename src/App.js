@@ -31,11 +31,14 @@ function App() {
     })
   }
 
-  //Get current movies
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
   const currentMovies = movies.slice(indexOfFirstItem, indexOfLastItem)
 
+  const changePage=(page)=>{
+    console.log(page)
+    setCurrentPage(page)
+  }
   return (
     <div className="container">
       <div className="row">
@@ -51,11 +54,11 @@ function App() {
         <MoviesSearch setQuery={setQuery} />
       </div>
      <div>
-       <Paginate currentPage={currentPage} itemsPerPage={itemsPerPage} />
+       <Paginate currentPage={currentPage} itemsPerPage={itemsPerPage} movies={movies} changePage={changePage} />
      </div>
 
      <div className='row'>
-       <Movies currentMovies={search(currentMovies)} />
+       <Movies movies={search(currentMovies)} />
      </div>
     </div>
   );

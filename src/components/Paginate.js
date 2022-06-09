@@ -1,24 +1,19 @@
 import React from 'react';
 import {Pagination} from 'react-bootstrap'
 
-function Paginate({movies}) {
+function Paginate({movies, currentPage, itemsPerPage, changePage}) {
   return (
     <Pagination>
-    <Pagination.First />
-    <Pagination.Prev />
-    <Pagination.Item>{1}</Pagination.Item>
-    <Pagination.Ellipsis />
-  
-    <Pagination.Item>{10}</Pagination.Item>
-    <Pagination.Item>{11}</Pagination.Item>
-    <Pagination.Item active>{12}</Pagination.Item>
-    <Pagination.Item>{13}</Pagination.Item>
-    <Pagination.Item disabled>{14}</Pagination.Item>
-  
-    <Pagination.Ellipsis />
-    <Pagination.Item>{20}</Pagination.Item>
-    <Pagination.Next />
-    <Pagination.Last />
+    <Pagination.First onClick={()=>changePage(1)}/>
+    <Pagination.Prev onClick={currentPage>1 ? currentPage-1 : 1}/>
+    <Pagination.Item onClick={()=>changePage(currentPage > 5 ? currentPage-4 : 1)}>{1}</Pagination.Item>
+   
+    <Pagination.Item onClick={()=>changePage(currentPage > 5 ? currentPage-3 : 2)}>{2}</Pagination.Item>
+    <Pagination.Item onClick={()=>changePage(currentPage > 5 ? currentPage-2 : 3)}>{3}</Pagination.Item>
+    <Pagination.Item active onClick={()=>changePage(currentPage > 5 ? currentPage-1 : 4)}>{4}</Pagination.Item>
+    <Pagination.Item  onClick={()=>changePage(currentPage > 5 ? currentPage : 5)}>{5}</Pagination.Item>
+    <Pagination.Next onClick={()=>changePage(currentPage<Math.ceil(movies.length/itemsPerPage) ? currentPage+1 : Math.ceil(movies.length/itemsPerPage))} />
+    <Pagination.Last onClick={()=>changePage(Math.ceil(movies.length/itemsPerPage))}/>
   </Pagination>
   )
 }
