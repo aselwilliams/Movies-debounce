@@ -1,7 +1,9 @@
-import React from 'react';
-import {Pagination} from 'react-bootstrap'
+import {useContext} from 'react';
+import {Pagination} from 'react-bootstrap';
+import {PagesContext} from '../components/context/PagesContext'
 
-function Paginate({movies, currentPage, itemsPerPage, changePage}) {
+function Paginate() {
+  const {movies, currentPage, changePage, itemsPerPage} = useContext(PagesContext)
   return (
     <Pagination>
     <Pagination.First onClick={()=>changePage(1)}/>
